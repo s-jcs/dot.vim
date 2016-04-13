@@ -6,6 +6,9 @@
 " 背景黒向け
 syntax on
 
+autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
 set cursorline " カーソルラインの強調表示を有効化
 " highlight Normal ctermbg=black ctermfg=grey
 highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey

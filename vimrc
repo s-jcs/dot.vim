@@ -1,17 +1,23 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""   Vim Setting
 ""
-
 " シンタックスハイライト有効化
 " 背景黒向け
 syntax on
 
-set cursorline " カーソルラインの強調表示を有効化
+"map
+map <C-n> :NERDTree<CR>
+map <D-n> :NERDtree<CR>
+
+autocmd filetype crontab setlocal nobackup nowritebackup
+autocmd BufWritePre * :%s/\s\+$//e
+
+"set cursorline " カーソルラインの強調表示を有効化
 " highlight Normal ctermbg=black ctermfg=grey
-highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
 highlight cursorline term=reverse cterm=reverse
 " highlight BadWhitespace ctermbg=red guibg=red
-
+"
+"
 " 背景白向け
 " highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 "highlight Normal ctermbg=grey ctermfg=black
@@ -22,8 +28,11 @@ highlight cursorline term=reverse cterm=reverse
 "
 "set nohlsearch " 検索キーワードをハイライトしないように設定
 set hlsearch " 検索キーワードのハイライト
-
+set nocompatible
 set ignorecase " 検索時に大文字小文字を区別しない
+set lazyredraw
+set ttyfast
+set cursorline
 
 " 文字コード関連設定
 source ~/.vim/config/character.vim
@@ -47,7 +56,7 @@ if version >= 703
 
   function! ToggleNumberOption()
     if &number
-      set relativenumber
+      set number
     else
       set number
     endif
@@ -65,7 +74,7 @@ set hidden "変更中のファイルでも、保存しないで他のファイ�
 set incsearch "インクリメンタルサーチを行う
 
 "listで表示される文字のフォーマットを指定する
-set list
+set nolist
 " タブ文字、行末など不可視文字を表示する
 set listchars=tab:»-,extends:»,precedes:«,nbsp:%,trail:-,eol:↲
 
