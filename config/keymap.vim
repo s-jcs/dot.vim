@@ -32,13 +32,13 @@ noremap <C-x><C-x> :source $HOME/.vimrc<CR>
 noremap ; :
 noremap : ;
 
+" vertical split and tag serch
+nnoremap <C-b> :vsp <CR> :exec("tag ".expand("<cword>"))<CR>
+
 imap <C-@> <C-[>
 
 inoremap , ,<Space>
 
-" 移動系: Emacs風
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
 " imap <C-n> <Down>
 " imap <C-p> <UP>
 inoremap <C-a> <Home>

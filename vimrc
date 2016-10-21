@@ -5,10 +5,6 @@
 " 背景黒向け
 syntax on
 
-"map
-map <C-n> :NERDTree<CR>
-map <D-n> :NERDtree<CR>
-
 autocmd filetype crontab setlocal nobackup nowritebackup
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -88,7 +84,6 @@ set smarttab "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数
 set tabstop=2 "ファイル内の <Tab> が対応する空白の数
 set whichwrap=b,s,h,l,<,>,[,] "カーソルを行頭、行末で止まらないようにする
 set nocompatible   " Disable vi-compatibility
-set whichwrap=b,s,h,l,<,>,[,] "カーソルを行頭，行末で止まらないようにする
 "BSで削除できるものを指定する
 " indent  : 行頭の空白
 " eol     : 改行
@@ -142,36 +137,14 @@ endfunction
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
-
-if has('gui_macvim')
-    set showtabline=2 " タブを常に表示
-    set imdisable " IMを無効化
-    set transparency=2 " 透明度を指定
-    set antialias
-    set guifont=RictyDiscord-Regular:h16
-    " set guifontwide=RictyDiscord-Regular:h16
-    " set guifont=Monaco:h14
-    " set guifont=Ricty:h18
-else
-  source ~/.vim/config/tabpage.vim
-endif
-
-" if has("gui_running")
-"   set fuoptions=maxvert,maxhorz
-"   au GUIEnter * set fullscreen
-" endif
-
-" gvimrc があとから読まれる
-" 読まれたく無いファイルには下記の設定を記述
-"let plugin_cmdex_disable = 1
-
 " vundle
 ":source ~/.vim/config/bundles.vim
-" neobundle
 source ~/.vim/config/neobundles.vim
-
+" neobundle
+source ~/.vim/config/tabpage.vim
 " calendar
 source ~/.vim/config/qfixhown-config.vim
+
 
 " Search Dash for word under cursor
 function! SearchDash()
