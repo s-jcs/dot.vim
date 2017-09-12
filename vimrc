@@ -8,27 +8,15 @@ syntax on
 autocmd filetype crontab setlocal nobackup nowritebackup
 autocmd BufWritePre * :%s/\s\+$//e
 
-"set cursorline " カーソルラインの強調表示を有効化
-" highlight Normal ctermbg=black ctermfg=grey
 highlight cursorline term=reverse cterm=reverse
-" highlight BadWhitespace ctermbg=red guibg=red
-"
-"
-" 背景白向け
-" highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
-"highlight Normal ctermbg=grey ctermfg=black
-"highlight StatusLine term=none cterm=none ctermfg=grey ctermbg=black
-"highlight CursorLine term=none cterm=none ctermfg=darkgray ctermbg=none
 
-" highlight cursorline term=reverse cterm=reverse
-"
-"set nohlsearch " 検索キーワードをハイライトしないように設定
 set hlsearch " 検索キーワードのハイライト
 set nocompatible
 set ignorecase " 検索時に大文字小文字を区別しない
 set lazyredraw
 set ttyfast
-set cursorline
+set undofile " Maintain undo history between vim sessions
+set undodir=~/.vim/undodir
 
 " 文字コード関連設定
 source ~/.vim/config/character.vim
@@ -44,20 +32,6 @@ set browsedir=buffer
 """"""""""""""""""
 " 行番号
 set number
-
-" 行番号表示切り替え(相対表示) - ver7.3 以降から対応
-if version >= 703
-  noremap  gl :<C-u>ToggleNumber<CR>
-  command! -nargs=0 ToggleNumber call ToggleNumberOption()
-
-  function! ToggleNumberOption()
-    if &number
-      set number
-    else
-      set number
-    endif
-  endfunction
-endif
 
 "クリップボードを連携
 set clipboard=unnamed
@@ -97,9 +71,6 @@ set mouse=a " マウス機能有効化
 " 常に開いているファイルと同じディレクトリをカレントディレクトリにする
 " au BufEnter * execute ":lcd " . expand("%:p:h")
 
-" 余計なVimエディタが起動しないようにする
-runtime macros/editexisting.vim
-
 " 文字のないところにもカーソルを移動できる
 " all   : all mode (normal, insert, ...)
 " block : only visual mode
@@ -108,66 +79,55 @@ set virtualedit=all
 " 検索結果ハイライトを ESCキーの連打でリセットする
 :nnoremap <ESC><ESC> :nohlsearch<CR>
 
-" vimgrepコマンドで検索したら、検索結果の一覧を自動で開く
-augroup grepopen
-  autocmd!
-  autocmd QuickFixCmdPost vimgrep cw
-augroup END
-
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
 
 set nofoldenable
 set colorcolumn=80
 
-" current directory setting
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-function! s:ChangeCurrentDir(directory, bang)
-    if a:directory == ''
-        lcd %:p:h
-    else
-        execute 'lcd' . a:directory
-    endif
-
-    if a:bang == ''
-        pwd
-    endif
-endfunction
-
-" Change current directory.
-nnoremap <silent> <Space>cd :<C-u>CD<CR>
-
 " vundle
 ":source ~/.vim/config/bundles.vim
 source ~/.vim/config/neobundles.vim
+
 " neobundle
 source ~/.vim/config/tabpage.vim
+
 " calendar
 source ~/.vim/config/qfixhown-config.vim
 
+" set ctags
+set tags=./tags,tags;
 
-" Search Dash for word under cursor
-function! SearchDash()
-  let s:browser = "/usr/bin/open"
-  let s:wordUnderCursor = expand("<cword>")
-  let s:url = "dash://".s:wordUnderCursor
-  let s:cmd ="silent ! " . s:browser . " " . s:url
-  execute s:cmd
-  redraw!
-endfunction
+ """python"""
+inoremap pdb<Space> import pdb;pdb.set_trace()
 
-nnoremap <leader>dw :call SearchDash()<CR>
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
 
-" Open junk file."{{{
-command! -nargs=0 JunkFile call s:open_junk_file()
-function! s:open_junk_file()
-  let l:junk_dir = $HOME . '/.vim/junk_files'. strftime('/%Y/%m')
-  if !isdirectory(l:junk_dir)
-    call mkdir(l:junk_dir, 'p')
-  endif
+:colorscheme default
 
-  let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-  if l:filename != ''
-    execute 'edit ' . l:filename
-  endif
-endfunction"}}}

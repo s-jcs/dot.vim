@@ -1,6 +1,7 @@
 bundle/*
 swaps/*
 backup/*
+undodir/*
 docs
 data/qfixhown
 junk_files/*

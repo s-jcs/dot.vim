@@ -346,8 +346,6 @@ let g:used_javascript_libs = 'angularjs,backbone,underscore'
 " Jasmine: jasmine
 
 NeoBundle 'kchmck/vim-coffee-script'
-" vimにcoffeeファイルタイプを認識させる
-au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 " インデントを設定
 autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
 
@@ -356,9 +354,6 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'tell-k/vim-browsereload-mac'
 
 "" tool 群
-NeoBundle 'nathanaelkane/vim-indent-guides'
-:let g:indent_guides_enable_on_vim_startup=1
-:let g:indent_guides_guide_size=1
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 NeoBundle 'osyo-manga/vim-over'
