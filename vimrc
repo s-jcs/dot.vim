@@ -85,16 +85,6 @@ set grepprg=grep\ -nh
 set nofoldenable
 set colorcolumn=80
 
-" vundle
-":source ~/.vim/config/bundles.vim
-source ~/.vim/config/neobundles.vim
-
-" neobundle
-source ~/.vim/config/tabpage.vim
-
-" calendar
-source ~/.vim/config/qfixhown-config.vim
-
 " set ctags
 set tags=./tags,tags;
 

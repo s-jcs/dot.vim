@@ -7,12 +7,12 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 
 "" for powerline
 "
-" set statusline=%F%r%h%= " ステータスラインの内容
-" set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [%04v:%04l\/%L(%p%%)]
-"
-" set statusline=%<%F\ %m%r%h%w
-" set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'}
-" set statusline+=%=[\ %v\ :\ L%l\ \/\ %L(%p%%)\ ]
+set statusline=%F%r%h%= " ステータスラインの内容
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [%04v:%04l\/%L(%p%%)]
+
+set statusline=%<%F\ %m%r%h%w
+set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'}
+set statusline+=%=[\ %v\ :\ L%l\ \/\ %L(%p%%)\ ]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
